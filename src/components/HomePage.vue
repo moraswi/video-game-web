@@ -36,12 +36,21 @@
 
             <p class="textContent mt-12" for="name">Minimum Score</p>
             <div class="mt-n4">
-              <input v-model="minimumScore" class="textField" />
+              <input v-model="searchByScore" class="textField" />
             </div>
 
             <p class="textContent mt-10" for="name">Order By</p>
-            <div class="" align="right">
-              <v-btn class="white--text py-0" color="#5692e8" dense>
+
+            <select v-model="selectOpton" class="textField">
+              <option model="score" value="score">Score</option>
+              <option model="name" value="name">Name</option>
+            </select>
+            <div class="mt-3" align="right">
+              <v-btn
+                class="white--text py-0"
+                color="#5692e8"
+                @click="clearData"
+              >
                 clear
               </v-btn>
             </div>
@@ -109,6 +118,8 @@ export default {
 
   data: () => ({
     searchByName: "",
+    searchByScore: "",
+    selectOpton: "",
     posts: [],
     overlay: false,
   }),
@@ -143,6 +154,12 @@ export default {
         })
         .catch((error) => console.log(error));
     },
+
+    clearData() {
+      this.searchByName = "";
+      this.searchByScore = "";
+      this.selectOpton = "";
+    },
   },
 };
 </script>
@@ -158,5 +175,10 @@ export default {
   stroke: none;
   outline-style: none;
   background-color: #182c47;
+  color: #c1d1e8;
+
+  width: 100%;
+  height: 40px;
+  padding: 10px;
 }
 </style>

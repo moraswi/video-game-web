@@ -56,7 +56,10 @@
               <v-col cols="12" md="12">
                 <p class="textContent" for="name">Message</p>
                 <div class="mt-n4">
-                  <textarea class="textField" v-model="message"></textarea>
+                  <textarea
+                    class="messageTextField"
+                    v-model="message"
+                  ></textarea>
                 </div>
               </v-col>
             </v-row>
@@ -92,5 +95,21 @@ export default {
   stroke: none;
   outline-style: none;
   background-color: #182c47;
+  color: #c1d1e8;
+
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+}
+.messageTextField {
+  border-style: none;
+  stroke: none;
+  outline-style: none;
+  background-color: #182c47;
+  color: #c1d1e8;
+
+  width: 100%;
+  height: 200px;
+  padding: 10px;
 }
 </style>
