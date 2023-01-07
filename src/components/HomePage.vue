@@ -31,7 +31,7 @@
 
             <p class="textContent" for="name">Name</p>
             <div class="mt-n4">
-              <input v-model="message" class="textField" />
+              <input v-model="searchByName" class="textField" />
             </div>
 
             <p class="textContent mt-12" for="name">Minimum Score</p>
@@ -49,7 +49,12 @@
         </v-col>
 
         <v-col cols="12" md="9">
-          <v-container class="mt-4" v-for="post in posts" :key="post.id">
+          <v-container
+            class="mt-4"
+            v-for="post in filterdBlogs"
+            :key="post.id"
+            :per-page="5"
+          >
             <v-row class="cardPanel">
               <v-col class="py-0 px-0" cols="12" sm="2">
                 <v-card
@@ -103,12 +108,26 @@ export default {
   name: "HelloWorld",
 
   data: () => ({
+    searchByName: "",
     posts: [],
     overlay: false,
   }),
 
   created() {
     this.getVedioData();
+  },
+
+  computed: {
+    filterdBlogs: function () {
+      return this.posts.filter((post) => {
+        return post.name.toLowerCase().match(this.searchByName);
+      });
+    },
+    // filterdBlogs: function () {
+    //   return this.posts.filter((post) => {
+    //     return post.title.match(this.searchByName);
+    //   });
+    // },
   },
   methods: {
     //calling vedio data Api
