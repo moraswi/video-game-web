@@ -26,7 +26,7 @@
       <v-row class="mt-3">
         <!-- filter card -->
         <v-col cols="12" md="3">
-          <v-card class="cardPanel text-left pa-2" width="100%">
+          <v-card class="cardPanel text-left mt-4 pa-2" width="100%">
             <h4 class="textContent mb-5">Filter Results</h4>
 
             <p class="textContent" for="name">Name</p>
@@ -134,6 +134,7 @@ export default {
         return post.name.toLowerCase().match(this.searchByName);
       });
     },
+
     // filterdBlogs: function () {
     //   return this.posts.filter((post) => {
     //     return post.title.match(this.searchByName);
