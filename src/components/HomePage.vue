@@ -59,8 +59,8 @@
 
         <v-col cols="12" md="9">
           <v-container
-            class="mt-4"
-            v-for="post in filterdBlogs"
+            class="my-4"
+            v-for="post in displayedPosts"
             :key="post.id"
             :per-page="5"
           >
@@ -132,6 +132,10 @@
               </v-col>
             </v-row>
           </v-container>
+
+          <div class="text-center pt-2">
+            <v-pagination v-model="page" :length="perPage"></v-pagination>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -147,16 +151,29 @@ import axios from "axios";
 export default {
   name: "HelloWorld",
 
+  // el: "#pagination-app",
+
   data: () => ({
     searchByName: "",
     searchByScore: "",
     selectOpton: "",
     posts: [],
     overlay: false,
+
+    page: 1,
+    perPage: 5,
+    pages: [],
   }),
 
   created() {
     this.getVedioData();
+    this.getVedioData();
+  },
+
+  watch: {
+    posts() {
+      this.setPages();
+    },
   },
 
   computed: {
@@ -166,12 +183,16 @@ export default {
       });
     },
 
+    displayedPosts() {
+      return this.paginate(this.posts);
+    },
     // filterdBlogs: function () {
     //   return this.posts.filter((post) => {
     //     return post.title.match(this.searchByName);
     //   });
     // },
   },
+
   methods: {
     //calling vedio data Api
 
@@ -191,6 +212,21 @@ export default {
       this.searchByName = "";
       this.searchByScore = "";
       this.selectOpton = "";
+    },
+
+    setPages() {
+      let numberOfPages = Math.ceil(this.posts.length / this.perPage);
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+
+    paginate(posts) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return posts.slice(from, to);
     },
   },
 };
