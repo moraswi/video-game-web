@@ -177,20 +177,36 @@ export default {
   },
 
   computed: {
+    //search by name
     filterdBlogs: function () {
       return this.posts.filter((post) => {
         return post.name.toLowerCase().match(this.searchByName);
       });
     },
 
+    // sort by score
+    /* eslint-disable */
+    sortByScore() {
+      return this.posts.sort((a, b) => {
+        return a.rating - b.rating;
+      });
+    },
+
+    // sort by Name
+    sortByName: function () {
+      function compare(a, b) {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      }
+
+      return this.posts.sort(compare);
+    },
+
+    //separating data into pages
     displayedPosts() {
       return this.paginate(this.posts);
     },
-    // filterdBlogs: function () {
-    //   return this.posts.filter((post) => {
-    //     return post.title.match(this.searchByName);
-    //   });
-    // },
   },
 
   methods: {
