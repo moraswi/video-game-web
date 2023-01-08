@@ -74,10 +74,25 @@
                   tile
                   align="right"
                 >
-                  <div class="my-auto mx-2 hidden-md-and-up">
-                    <v-avatar color="#5692e8" class="button" size="36">
+                  <!-- hidden-md-and-up -->
+                  <div class="my-auto mx-2">
+                    <v-avatar
+                      color="#5692e8"
+                      class="button"
+                      size="36"
+                      v-show="$vuetify.breakpoint.xs"
+                    >
                       <span class="white--text text-h5">2</span>
                     </v-avatar>
+
+                    <!-- <v-avatar
+                      color="#5692e8"
+                      class="button"
+                      size="36"
+                      v-show="$vuetify.breakpoint.lg"
+                    >
+                      <span class="white--text text-h5">2</span>
+                    </v-avatar> -->
                   </div></v-card
                 >
               </v-col>
@@ -91,8 +106,24 @@
                     {{ post.summary }}
                   </p>
                 </v-card>
-                <div class="my-auto mx-2 hidden-sm-and-down">
-                  <v-avatar color="#5692e8" class="button" size="50">
+                <!--  -->
+                <div class="my-auto mx-2">
+                  <v-avatar
+                    color="#5692e8"
+                    class="button hidden-sm-and-down"
+                    size="50"
+                  >
+                    <span class="white--text text-h5">
+                      {{ post.rating }}
+                    </span>
+                  </v-avatar>
+
+                  <v-avatar
+                    color="#5692e8"
+                    class="button"
+                    size="50"
+                    v-show="$vuetify.breakpoint.sm"
+                  >
                     <span class="white--text text-h5">
                       {{ post.rating }}
                     </span>
