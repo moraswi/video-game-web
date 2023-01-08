@@ -60,7 +60,7 @@
         <v-col cols="12" md="9">
           <v-container
             class="my-4"
-            v-for="post in filterdBlogs"
+            v-for="post in postsDisplay"
             :key="post.id"
             :per-page="5"
           >
@@ -114,7 +114,7 @@
                     size="50"
                   >
                     <span class="white--text text-h5">
-                      {{ post.rating }}
+                      {{ post.rating.toFixed(0) }}
                     </span>
                   </v-avatar>
 
@@ -158,6 +158,7 @@ export default {
     searchByScore: "",
     selectOpton: "",
     posts: [],
+    postsDisplay: [],
     overlay: false,
 
     page: 1,
@@ -174,34 +175,44 @@ export default {
     posts() {
       this.setPages();
     },
+
+    selectOpton() {
+      this.sort();
+    },
+
+    searchByName() {
+      this.filterdBlogsName();
+
+      this.sort();
+    },
   },
 
   computed: {
     //search by name
-    filterdBlogs: function () {
-      return this.posts.filter((post) => {
-        return post.name.toLowerCase().match(this.searchByName);
-      });
-    },
+    // filterdBlogsName: function () {
+    //   return this.posts.filter((post) => {
+    //     return post.name.toLowerCase().match(this.searchByName);
+    //   });
+    // },
 
-    // sort by score
+    // sort by score (dropdown)
     /* eslint-disable */
-    sortByScore() {
-      return this.posts.sort((a, b) => {
-        return a.rating - b.rating;
-      });
-    },
+    // sortByScore() {
+    //   return this.posts.sort((curentFirstScore, currentSecondScore) => {
+    //     return curentFirstScore.rating - currentSecondScore.rating;
+    //   });
+    // },
 
-    // sort by Name
-    sortByName: function () {
-      function compare(a, b) {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
-        return 0;
-      }
+    // // sort by Name(dropdown)
+    // sortByName: function () {
+    //   function compare(curentFirstName, currentSecondName) {
+    //     if (curentFirstName.name < currentSecondName.name) return -1;
+    //     if (curentFirstName.name > currentSecondName.name) return 1;
+    //     return 0;
+    //   }
 
-      return this.posts.sort(compare);
-    },
+    //   return this.posts.sort(compare);
+    // },
 
     //separating data into pages
     displayedPosts() {
@@ -218,6 +229,7 @@ export default {
         .get("https://public.connectnow.org.uk/applicant-test/")
         .then((response) => {
           this.posts = response.data;
+          this.postsDisplay = response.data;
           console.log("data", response.data);
           this.overlay = false;
         })
@@ -243,6 +255,39 @@ export default {
       let from = page * perPage - perPage;
       let to = page * perPage;
       return posts.slice(from, to);
+    },
+
+    filterdBlogsName() {
+      this.postsDisplay = this.posts.filter((post) => {
+        return post.name.toLowerCase().match(this.searchByName);
+      });
+    },
+
+    sort() {
+      if (this.selectOpton == "name") {
+        this.sortByName();
+      } else if (this.selectOpton == "score") {
+        this.sortByScore();
+      }
+    },
+
+    sortByScore() {
+      this.postsDisplay = this.postsDisplay.sort(
+        (curentFirstScore, currentSecondScore) => {
+          return curentFirstScore.rating - currentSecondScore.rating;
+        }
+      );
+    },
+
+    // sort by Name(dropdown)
+    sortByName() {
+      function compare(curentFirstName, currentSecondName) {
+        if (curentFirstName.name < currentSecondName.name) return -1;
+        if (curentFirstName.name > currentSecondName.name) return 1;
+        return 0;
+      }
+
+      this.postsDisplay = this.postsDisplay.sort(compare);
     },
   },
 };
