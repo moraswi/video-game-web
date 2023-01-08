@@ -60,7 +60,7 @@
         <v-col cols="12" md="9">
           <v-container
             class="my-4"
-            v-for="post in displayedPosts"
+            v-for="post in filterdBlogs"
             :key="post.id"
             :per-page="5"
           >
@@ -167,7 +167,7 @@ export default {
 
   created() {
     this.getVedioData();
-    this.getVedioData();
+    // this.getVedioData();
   },
 
   watch: {
