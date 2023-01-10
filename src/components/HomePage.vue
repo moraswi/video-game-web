@@ -59,12 +59,7 @@
         </v-col>
 
         <v-col cols="12" md="9">
-          <v-container
-            class="my-4"
-            v-for="post in postsDisplay"
-            :key="post.id"
-            :per-page="5"
-          >
+          <v-container class="my-4" v-for="post in postsDisplay" :key="post.id">
             <v-row class="cardPanel">
               <v-col class="py-0 px-0" cols="12" sm="2">
                 <v-card
@@ -134,10 +129,6 @@
               </v-col>
             </v-row>
           </v-container>
-
-          <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="perPage"></v-pagination>
-          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -163,10 +154,6 @@ export default {
     posts: [],
     postsDisplay: [],
     overlay: false,
-
-    page: 1,
-    perPage: 5,
-    pages: [],
   }),
 
   created() {
@@ -175,16 +162,8 @@ export default {
   },
 
   watch: {
-    posts() {
-      this.setPages();
-    },
-
     selectOpton() {
       this.sort();
-    },
-
-    page() {
-      this.displayedPosts();
     },
 
     searchByName() {
@@ -196,35 +175,6 @@ export default {
     searchByScore() {
       this.filterByScore();
     },
-  },
-
-  computed: {
-    //search by name
-    // filterdBlogsName: function () {
-    //   return this.posts.filter((post) => {
-    //     return post.name.toLowerCase().match(this.searchByName);
-    //   });
-    // },
-    // sort by score (dropdown)
-    /* eslint-disable */
-    // sortByScore() {
-    //   return this.posts.sort((curentFirstScore, currentSecondScore) => {
-    //     return curentFirstScore.rating - currentSecondScore.rating;
-    //   });
-    // },
-    // // sort by Name(dropdown)
-    // sortByName: function () {
-    //   function compare(curentFirstName, currentSecondName) {
-    //     if (curentFirstName.name < currentSecondName.name) return -1;
-    //     if (curentFirstName.name > currentSecondName.name) return 1;
-    //     return 0;
-    //   }
-    //   return this.posts.sort(compare);
-    // },
-    //separating data into pages
-    // displayedPosts() {
-    //   return this.paginate(this.posts);
-    // },
   },
 
   methods: {
@@ -248,21 +198,6 @@ export default {
       this.searchByScore = "";
       this.releaseDate = "";
       this.selectOpton = "";
-    },
-
-    setPages() {
-      let numberOfPages = Math.ceil(this.posts.length / this.perPage);
-      for (let index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index);
-      }
-    },
-
-    paginate(posts) {
-      let page = this.page;
-      let perPage = this.perPage;
-      let from = page * perPage - perPage;
-      let to = page * perPage;
-      return posts.slice(from, to);
     },
 
     filterdBlogsName() {
@@ -311,10 +246,6 @@ export default {
       this.postsDisplay = this.postsDisplay.sort(compare);
     },
 
-    displayedPosts() {
-      this.postsDisplay = this.paginate(this.postsDisplay);
-    },
-
     filterByScore() {
       let arrayValues = this.searchByScore.split("-");
 
@@ -349,9 +280,6 @@ export default {
 
 <style lang="scss" scoped>
 //
-// .heading {
-//   color: #ffffff;
-// }
 
 .textField {
   border-style: none;
