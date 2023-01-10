@@ -42,6 +42,7 @@
             <p class="textContent mt-10" for="name">Order By</p>
 
             <select v-model="selectOpton" class="textField">
+              <option model="releaseDate" value="score">releaseDate</option>
               <option model="score" value="score">Score</option>
               <option model="name" value="name">Name</option>
             </select>
@@ -156,6 +157,7 @@ export default {
 
   data: () => ({
     searchByName: "",
+    releaseDate: "",
     searchByScore: "",
     selectOpton: "",
     posts: [],
@@ -240,6 +242,7 @@ export default {
     clearData() {
       this.searchByName = "";
       this.searchByScore = "";
+      this.releaseDate = "";
       this.selectOpton = "";
     },
 
@@ -269,6 +272,8 @@ export default {
         this.sortByName();
       } else if (this.selectOpton == "score") {
         this.sortByScore();
+      } else if (this.selectOpton == "releaseDate") {
+        this.sortByDate();
       }
     },
 
@@ -276,6 +281,17 @@ export default {
       this.postsDisplay = this.postsDisplay.sort(
         (curentFirstScore, currentSecondScore) => {
           return curentFirstScore.rating - currentSecondScore.rating;
+        }
+      );
+    },
+
+    sortByDate() {
+      this.postsDisplay = this.postsDisplay.sort(
+        (curentFirstScore, currentSecondScore) => {
+          return (
+            curentFirstScore.first_release_date -
+            currentSecondScore.first_release_date
+          );
         }
       );
     },
