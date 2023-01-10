@@ -85,11 +85,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//
-// .heading {
-//   color: #ffffff;
-// }
-
 .textField {
   border-style: none;
   stroke: none;
