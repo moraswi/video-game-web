@@ -192,6 +192,10 @@ export default {
 
       this.sort();
     },
+
+    searchByScore() {
+      this.filterByScore();
+    },
   },
 
   computed: {
@@ -309,6 +313,35 @@ export default {
 
     displayedPosts() {
       this.postsDisplay = this.paginate(this.postsDisplay);
+    },
+
+    filterByScore() {
+      let arrayValues = this.searchByScore.split("-");
+
+      if (arrayValues.length == 2) {
+        let min = arrayValues[0].trim();
+        let max = arrayValues[1].trim();
+
+        if (this.isInteger(min) && this.isInteger(max)) {
+          let tempPosts = [];
+
+          this.posts.forEach((post) => {
+            let rating = parseInt(post.rating);
+
+            if (parseInt(min) <= rating && rating <= parseInt(max)) {
+              tempPosts.push(post);
+            }
+          });
+
+          this.postsDisplay = tempPosts;
+
+          this.sort();
+        }
+      }
+    },
+
+    isInteger(value) {
+      return /^\d+$/.test(value);
     },
   },
 };
