@@ -100,7 +100,8 @@
                 <v-card class="cardPanel text-left pa-2" width="100%" flat tile>
                   <h3 class="textContent">{{ post.name }}</h3>
                   <p class="textContent">
-                    Release Date: {{ post.first_release_date }}
+                    Release Date:
+                    {{ moment(post.first_release_date).format("DD/MM/YYYY") }}
                   </p>
                   <p class="textContent">
                     {{ post.summary }}
@@ -180,6 +181,10 @@ export default {
       this.sort();
     },
 
+    page() {
+      this.displayedPosts();
+    },
+
     searchByName() {
       this.filterdBlogsName();
 
@@ -194,7 +199,6 @@ export default {
     //     return post.name.toLowerCase().match(this.searchByName);
     //   });
     // },
-
     // sort by score (dropdown)
     /* eslint-disable */
     // sortByScore() {
@@ -202,7 +206,6 @@ export default {
     //     return curentFirstScore.rating - currentSecondScore.rating;
     //   });
     // },
-
     // // sort by Name(dropdown)
     // sortByName: function () {
     //   function compare(curentFirstName, currentSecondName) {
@@ -210,14 +213,12 @@ export default {
     //     if (curentFirstName.name > currentSecondName.name) return 1;
     //     return 0;
     //   }
-
     //   return this.posts.sort(compare);
     // },
-
     //separating data into pages
-    displayedPosts() {
-      return this.paginate(this.posts);
-    },
+    // displayedPosts() {
+    //   return this.paginate(this.posts);
+    // },
   },
 
   methods: {
@@ -288,6 +289,10 @@ export default {
       }
 
       this.postsDisplay = this.postsDisplay.sort(compare);
+    },
+
+    displayedPosts() {
+      this.postsDisplay = this.paginate(this.postsDisplay);
     },
   },
 };
