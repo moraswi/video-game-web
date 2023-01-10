@@ -80,15 +80,6 @@
                     >
                       <span class="white--text text-h5">2</span>
                     </v-avatar>
-
-                    <!-- <v-avatar
-                      color="#5692e8"
-                      class="button"
-                      size="36"
-                      v-show="$vuetify.breakpoint.lg"
-                    >
-                      <span class="white--text text-h5">2</span>
-                    </v-avatar> -->
                   </div></v-card
                 >
               </v-col>
@@ -103,7 +94,7 @@
                     {{ post.summary }}
                   </p>
                 </v-card>
-                <!--  -->
+
                 <div class="my-auto mx-2">
                   <v-avatar
                     color="#5692e8"
@@ -158,7 +149,6 @@ export default {
 
   created() {
     this.getVedioData();
-    // this.getVedioData();
   },
 
   watch: {
