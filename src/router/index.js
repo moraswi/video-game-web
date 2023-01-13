@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomePage from "../views/HomePage.vue";
-import Contacts from "../views/Contacts.vue";
+import HomePage from "@/views/HomePage.vue";
+import contacts from "@/views/Contacts.vue";
+import practicePage from "@/views/Practice.vue";
 
 Vue.use(VueRouter);
 
@@ -14,8 +15,14 @@ const routes = [
 
   {
     path: "/contacts",
-    name: "Contacts",
-    component: Contacts,
+    name: "contacts",
+    component: contacts,
+  },
+
+  {
+    path: "/practice",
+    name: "practicePage",
+    component: practicePage,
   },
 ];
 

@@ -14,9 +14,18 @@
         <v-col cols="12" md="3">
           <router-link
             class="nav-link text-decoration-none mt-1"
-            :to="{ name: 'Contacts' }"
+            :to="{ name: 'contacts' }"
           >
             <h2 class="heading">CONTACT</h2>
+          </router-link>
+        </v-col>
+
+        <v-col cols="12" md="3">
+          <router-link
+            class="nav-link text-decoration-none mt-1"
+            :to="{ name: 'practicePage' }"
+          >
+            <h2 class="heading">PRACTICE API</h2>
           </router-link>
         </v-col>
       </v-row>
